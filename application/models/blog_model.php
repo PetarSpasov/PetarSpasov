@@ -1,6 +1,6 @@
 <?php
 
-class site_model extends CI_Model {
+class blog_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -8,7 +8,7 @@ class site_model extends CI_Model {
 
     function form_insert($data) {
 
-        $this->db->insert('ci', $data);
+        $this->db->insert('article', $data);
     }
 
 }
