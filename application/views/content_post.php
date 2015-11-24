@@ -1,9 +1,10 @@
-<div id="blog">
+<div id="contact">
     <center> <h2>Create Post</h2></center>
     <?php
     $this->load->helper("form");
     echo validation_errors();
-    echo form_open("blog/send_post");
+    echo $message;
+    echo form_open_multipart("blog/send_post");
 
     echo form_label("Title ", "title");
     $data = array(
@@ -32,8 +33,7 @@
 	echo form_label("Image:", "image");
     $data = array(
         "name" => "image",
-        "id" => "image",
-        "value" => set_value("image")
+        "id" => "image"
     );
     echo form_upload($data);
 
