@@ -5,15 +5,31 @@ if (!defined('BASEPATH'))
 
 class Blog extends CI_Controller {
 
+    public function __construct() {
+        parent::__construct();
+    }
+
     public function index() {
         $this->posts();
     }
 
-    public function posts() {
+    public function posts($offset=0) {
+        $this->load->model('blog_model');
+        $this->load->library('pagination');
+        $per_page = 5;
+        $data['result'] = $this->blog_model->get_items($per_page,$offset);
+        $config = array();
+        $config['total_rows'] = $this->blog_model->count_items();
+        $config['per_page'] = $per_page;
+        $config['uri_segment'] = 3;
+        $config['base_url'] = site_url() . '/blog/posts/';
+        $config['suffix'] = '?' . http_build_query($_GET, '', "&");
+        $this->pagination->initialize($config);
+        $data['paginglinks'] = $this->pagination->create_links();
         $data["message"] = "";
         $this->load->view("site_header");
         $this->load->view("site_nav");
-        $this->load->view("content_blog");
+        $this->load->view("content_blog",$data);
         $this->load->view("site_footer");
     }
 
@@ -97,6 +113,12 @@ class Blog extends CI_Controller {
         $this->load->view("site_nav");
         $this->load->view('article_view', $article);
         $this->load->view("site_footer");
+    }
+
+    function delete($id) {
+        $this->load->model('blog_model');
+        $this->blog_model->delete($id);
+        $this->posts();
     }
 
 }

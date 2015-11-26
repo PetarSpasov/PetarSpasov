@@ -27,6 +27,24 @@ class blog_model extends CI_Model {
         return $result;
     }
 
+    function count_items() {
+        return $this->db->count_all('article');
+    }
+
+    function get_items($limit, $offset) {
+        $data = array();
+        $this->db->limit($limit, $offset);
+        $Q = $this->db->get('article');
+        if ($Q->num_rows() > 0) {
+            foreach ($Q->result_array() as $row) {
+                $data[] = $row;
+            }
+        }
+        $Q->free_result();
+        
+        return $data;
+    }
+
 }
 
 ?>

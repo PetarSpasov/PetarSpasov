@@ -1,8 +1,7 @@
 <div id=content>
-    <base href="http://localhost/ci/" target="_blank">
-    <img src=./images/<?php echo $row->image; ?> />
+    <img src="<?php echo base_url("/images/". $row->image); ?>" />
     <br/>
-    <?php echo $row->title . '<br/>'; ?>
+    <?php     echo 'Title: '; echo $row->title . '<br/>'; ?>
     <?php
     echo 'Author: ';
     echo $row->author . '<br/>';
