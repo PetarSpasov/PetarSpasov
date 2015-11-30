@@ -10,6 +10,11 @@ class blog_model extends CI_Model {
 
         $this->db->insert('article', $postdata);
     }
+    
+    function form_update($postdata, $id){
+        $this->db->update('article', $postdata, array('id' => $id));
+        
+    }
 
     function views($id) {
         $result = $this->db->get_where('article', array('id' => $id))->row();
@@ -44,7 +49,6 @@ class blog_model extends CI_Model {
         
         return $data;
     }
-
 }
 
 ?>

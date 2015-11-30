@@ -1,5 +1,5 @@
 <div id="contact">
-    <center> <h2>Contact us</h2></center>
+    <center> <h2>ContactUs</h2></center>
     <?php
     $this->load->helper("form");
     echo validation_errors();

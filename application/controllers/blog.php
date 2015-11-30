@@ -7,17 +7,18 @@ class Blog extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->library(array('session'));
     }
 
     public function index() {
         $this->posts();
     }
 
-    public function posts($offset=0) {
+    public function posts($offset = 0) {
         $this->load->model('blog_model');
         $this->load->library('pagination');
-        $per_page = 5;
-        $data['result'] = $this->blog_model->get_items($per_page,$offset);
+        $per_page = 4;
+        $data['result'] = $this->blog_model->get_items($per_page, $offset);
         $config = array();
         $config['total_rows'] = $this->blog_model->count_items();
         $config['per_page'] = $per_page;
@@ -29,7 +30,7 @@ class Blog extends CI_Controller {
         $data["message"] = "";
         $this->load->view("site_header");
         $this->load->view("site_nav");
-        $this->load->view("content_blog",$data);
+        $this->load->view("content_blog", $data);
         $this->load->view("site_footer");
     }
 
@@ -116,9 +117,38 @@ class Blog extends CI_Controller {
     }
 
     function delete($id) {
+        if (isset($_SESSION["is_admin"]) == 1) {
+            $this->load->model('blog_model');
+            $this->blog_model->delete($id);
+            $this->posts();
+        }
+    }
+
+    function edit_article($id = "") {
+        if (isset($_SESSION["is_admin"]) == 1) {
+            $this->load->model('blog_model');
+            
+            $data = array(
+                "action" => base_url('blog/update_article/' . $id),
+                "data" => $this->blog_model->show($id),
+            );
+            
+            $this->load->view("site_header");
+            $this->load->view("site_nav");
+            $this->load->view('edit_article', $data);
+            $this->load->view('site_footer');
+        }
+    }
+
+    function update_article($id) {
+        $data = array(
+            "title" => $this->input->post('title'),
+            "author" => $this->input->post('author'),
+            "postMessage" => $this->input->post('postMessage')
+        );
         $this->load->model('blog_model');
-        $this->blog_model->delete($id);
-        $this->posts();
+        $this->blog_model->form_update($data, $id);
+        redirect('/');
     }
 
 }

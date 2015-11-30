@@ -1,5 +1,5 @@
 <div id="contact">
-    <center> <h2>Create Post</h2></center>
+    <center> <h3>CreatePost</h3></center>
     <?php
     $this->load->helper("form");
     echo validation_errors();
@@ -40,5 +40,4 @@
     echo form_submit("PostSubmit", "Submit");
     echo form_close();
     ?>
-</div>
 	</div>
