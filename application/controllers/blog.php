@@ -125,7 +125,7 @@ class Blog extends CI_Controller {
     }
 
     function edit_article($id = "") {
-        if (isset($_SESSION["is_admin"]) == 1) {
+        if (isset($_SESSION["is_admin"]) && $_SESSION['is_admin']== 1) {
             $this->load->model('blog_model');
             
             $data = array(

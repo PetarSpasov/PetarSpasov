@@ -11,8 +11,8 @@
             <td><input type="text" name="author" value="<?php echo $data->author;?>"></td>
         </tr>
         <tr>
-            <td>PostMessage</td>
-            <td><input type="text" name="postMessage" value="<?php echo $data->postMessage;?>"></td>
+            <td>Post Message</td>
+            <td><textarea name="postMessage" cols="50" rows="10"><?php echo $data->postMessage;?></textarea></td>
         </tr>
         <tr>
         <td></td>

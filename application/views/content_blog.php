@@ -21,7 +21,7 @@
                         <td> <?php echo $row['date']; ?>
                         </td>
                         <td> <a href="<?php echo site_url('blog/article/' . $row['id']) ?>"><button type="button" class="btn btn-default">Read More</button></a></td>
-                        <?php if (isset($_SESSION['is_admin']) == 1) { ?>
+                        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']== 1) { ?>
                             <td> <a href="<?php echo site_url('blog/delete/' . $row['id']) ?>"><button type="button" class="btn btn-primary">Delete</button></a></td>
                             <td> <a href="<?php echo site_url('blog/edit_article/' . $row['id']) ?>"><button type="button" class="btn btn-success">Edit</button></a></td>
                         <?php } ?>
